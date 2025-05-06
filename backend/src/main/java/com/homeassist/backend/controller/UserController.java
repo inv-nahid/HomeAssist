@@ -23,24 +23,28 @@ public class UserController {
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody User user) {
         if (userRepository.findByEmail(user.getEmail()) != null) {
-            return ResponseEntity.badRequest().body("Email already exists");
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Email already exists");
+            return ResponseEntity.badRequest().body(response);
         }
         userRepository.save(user);
-        return ResponseEntity.ok("User registered successfully");
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Register successfully");
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody User loginRequest) {
         User user = userRepository.findByEmail(loginRequest.getEmail());
         if (user == null) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new HashMap<>() {{
-                put("message", "Invalid email or password");
-            }});
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Invalid email or password");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
         }
         if (!user.getPassword().equals(loginRequest.getPassword())) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new HashMap<>() {{
-                put("message", "Invalid email or password");
-            }});
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Invalid email or password");
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
         }
         Map<String, String> response = new HashMap<>();
         response.put("message", "Login successful");
