@@ -1,11 +1,19 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from 'react';
+import { useAuth } from '../context/AuthContext';
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { isLoggedIn, logout } = useAuth();
+  const navigate = useNavigate();
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login');
   };
 
   return (
@@ -29,15 +37,28 @@ const Navbar = () => {
             <Link to="/about" className="font-medium text-gray-600 hover:text-blue-600 transition">
               About
             </Link>
-            <Link to="/login" className="font-medium text-gray-600 hover:text-blue-600 transition">
-              Login
-            </Link>
-            <Link to="/register" className="font-medium text-gray-600 hover:text-blue-600 transition">
-              Register
-            </Link>
-            <Link to="/dashboard" className="font-medium text-gray-600 hover:text-blue-600 transition">
-              Dashboard
-            </Link>
+            {!isLoggedIn ? (
+              <>
+                <Link to="/login" className="font-medium text-gray-600 hover:text-blue-600 transition">
+                  Login
+                </Link>
+                <Link to="/register" className="font-medium text-gray-600 hover:text-blue-600 transition">
+                  Register
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link to="/dashboard" className="font-medium text-gray-600 hover:text-blue-600 transition">
+                  Dashboard
+                </Link>
+                <button
+                  onClick={handleLogout}
+                  className="font-medium text-gray-600 hover:text-blue-600 transition"
+                >
+                  Logout
+                </button>
+              </>
+            )}
             <Link 
               to="/book-now" 
               className="px-6 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition shadow-md hover:shadow-lg"
@@ -64,15 +85,31 @@ const Navbar = () => {
               <Link to="/about" className="block px-4 py-2 text-gray-600 hover:bg-gray-100 rounded" onClick={toggleMobileMenu}>
                 About
               </Link>
-              <Link to="/login" className="block px-4 py-2 text-gray-600 hover:bg-gray-100 rounded" onClick={toggleMobileMenu}>
-                Login
-              </Link>
-              <Link to="/register" className="block px-4 py-2 text-gray-600 hover:bg-gray-100 rounded" onClick={toggleMobileMenu}>
-                Register
-              </Link>
-              <Link to="/dashboard" className="block px-4 py-2 text-gray-600 hover:bg-gray-100 rounded" onClick={toggleMobileMenu}>
-                Dashboard
-              </Link>
+              {!isLoggedIn ? (
+                <>
+                  <Link to="/login" className="block px-4 py-2 text-gray-600 hover:bg-gray-100 rounded" onClick={toggleMobileMenu}>
+                    Login
+                  </Link>
+                  <Link to="/register" className="block px-4 py-2 text-gray-600 hover:bg-gray-100 rounded" onClick={toggleMobileMenu}>
+                    Register
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <Link to="/dashboard" className="block px-4 py-2 text-gray-600 hover:bg-gray-100 rounded" onClick={toggleMobileMenu}>
+                    Dashboard
+                  </Link>
+                  <button
+                    onClick={() => {
+                      handleLogout();
+                      toggleMobileMenu();
+                    }}
+                    className="block w-full text-left px-4 py-2 text-gray-600 hover:bg-gray-100 rounded"
+                  >
+                    Logout
+                  </button>
+                </>
+              )}
               <Link 
                 to="/book-now" 
                 className="block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700" 
