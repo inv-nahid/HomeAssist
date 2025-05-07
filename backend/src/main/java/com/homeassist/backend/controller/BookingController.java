@@ -56,4 +56,36 @@ public class BookingController {
             }});
         }
     }
+
+    @PostMapping("/create")
+    public ResponseEntity<?> createBooking(@RequestBody Booking booking, @RequestHeader("Authorization") String token) {
+        try {
+            // Extract email from JWT token
+            String email = Jwts.parserBuilder()
+                    .setSigningKey(Keys.hmacShaKeyFor(SECRET_KEY.getBytes(StandardCharsets.UTF_8)))
+                    .build()
+                    .parseClaimsJws(token.replace("Bearer ", ""))
+                    .getBody()
+                    .getSubject();
+
+            User user = userRepository.findByEmail(email);
+            if (user == null) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new HashMap<>() {{
+                    put("message", "Invalid token");
+                }});
+            }
+
+            // Set the user and default status
+            booking.setUser(user);
+            booking.setStatus("pending");
+
+            // Save the booking
+            Booking savedBooking = bookingRepository.save(booking);
+            return ResponseEntity.ok(savedBooking);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new HashMap<>() {{
+                put("message", "Invalid or expired token");
+            }});
+        }
+    }
 }

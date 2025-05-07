@@ -1,20 +1,55 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const BookingForm = ({ onSubmit }) => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    service: '',
+    provider: '',
+    serviceType: '',
     date: '',
     time: '',
     address: '',
     notes: ''
   });
+  const [error, setError] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    onSubmit(formData); // Use the passed onSubmit prop
+    setIsLoading(true);
+    setError('');
+
+    const token = localStorage.getItem('token');
+    if (!token) {
+      setError('Please log in to book a service');
+      setIsLoading(false);
+      return;
+    }
+
+    try {
+      const response = await fetch('http://localhost:8080/api/bookings/create', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify(formData)
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to create booking');
+      }
+
+      const data = await response.json();
+      if (onSubmit) {
+        onSubmit(data);
+      }
+      navigate('/dashboard');
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -26,52 +61,46 @@ const BookingForm = ({ onSubmit }) => {
         Fill out the form to schedule your appointment
       </p>
 
-      <form onSubmit={handleSubmit} className="space-y-6">
-        {/* Personal Information */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="animate-fade-in" style={{ animationDelay: '0.1s' }}>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Full Name
-            </label>
-            <input
-              type="text"
-              className="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-              value={formData.name}
-              onChange={(e) => setFormData({...formData, name: e.target.value})}
-              required
-            />
-          </div>
-
-          <div className="animate-fade-in" style={{ animationDelay: '0.2s' }}>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Email
-            </label>
-            <input
-              type="email"
-              className="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-              value={formData.email}
-              onChange={(e) => setFormData({...formData, email: e.target.value})}
-              required
-            />
-          </div>
+      {error && (
+        <div className="mb-4 p-4 bg-red-100 text-red-700 rounded-lg">
+          {error}
         </div>
+      )}
 
+      <form onSubmit={handleSubmit} className="space-y-6">
         {/* Service Selection */}
         <div className="animate-fade-in" style={{ animationDelay: '0.3s' }}>
           <label className="block text-sm font-medium text-gray-700 mb-1">
-            Service Needed
+            Service Provider
           </label>
           <select
             className="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            value={formData.service}
-            onChange={(e) => setFormData({...formData, service: e.target.value})}
+            value={formData.provider}
+            onChange={(e) => setFormData({...formData, provider: e.target.value})}
+            required
+          >
+            <option value="">Select a provider</option>
+            <option value="Jane's Cleaning Co">Jane's Cleaning Co</option>
+            <option value="Mike's Electrical Fix">Mike's Electrical Fix</option>
+            <option value="Tom's Plumbing Pros">Tom's Plumbing Pros</option>
+          </select>
+        </div>
+
+        <div className="animate-fade-in" style={{ animationDelay: '0.3s' }}>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
+            Service Type
+          </label>
+          <select
+            className="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            value={formData.serviceType}
+            onChange={(e) => setFormData({...formData, serviceType: e.target.value})}
             required
           >
             <option value="">Select a service</option>
-            <option value="cleaning">Home Cleaning</option>
-            <option value="electrical">Electrical Repair</option>
-            <option value="plumbing">Plumbing</option>
-            <option value="painting">Painting</option>
+            <option value="Cleaning">Home Cleaning</option>
+            <option value="Electrical">Electrical Repair</option>
+            <option value="Plumbing">Plumbing</option>
+            <option value="Painting">Painting</option>
           </select>
         </div>
 
@@ -135,9 +164,10 @@ const BookingForm = ({ onSubmit }) => {
         <div className="animate-fade-in" style={{ animationDelay: '0.8s' }}>
           <button
             type="submit"
-            className="w-full py-3 px-6 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5"
+            disabled={isLoading}
+            className="w-full py-3 px-6 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Confirm Booking
+            {isLoading ? 'Creating Booking...' : 'Confirm Booking'}
           </button>
         </div>
       </form>
