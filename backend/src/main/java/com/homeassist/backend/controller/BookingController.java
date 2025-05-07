@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/bookings")
@@ -82,6 +83,51 @@ public class BookingController {
             // Save the booking
             Booking savedBooking = bookingRepository.save(booking);
             return ResponseEntity.ok(savedBooking);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new HashMap<>() {{
+                put("message", "Invalid or expired token");
+            }});
+        }
+    }
+
+    @PostMapping("/{bookingId}/review")
+    public ResponseEntity<?> addReview(
+            @PathVariable Long bookingId,
+            @RequestBody Map<String, String> reviewData,
+            @RequestHeader("Authorization") String token) {
+        try {
+            // Extract email from JWT token
+            String email = Jwts.parserBuilder()
+                    .setSigningKey(Keys.hmacShaKeyFor(SECRET_KEY.getBytes(StandardCharsets.UTF_8)))
+                    .build()
+                    .parseClaimsJws(token.replace("Bearer ", ""))
+                    .getBody()
+                    .getSubject();
+
+            User user = userRepository.findByEmail(email);
+            if (user == null) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new HashMap<>() {{
+                    put("message", "Invalid token");
+                }});
+            }
+
+            // Find the booking
+            Booking booking = bookingRepository.findById(bookingId)
+                    .orElseThrow(() -> new RuntimeException("Booking not found"));
+
+            // Verify the booking belongs to the user
+            if (!booking.getUser().getEmail().equals(email)) {
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new HashMap<>() {{
+                    put("message", "Not authorized to review this booking");
+                }});
+            }
+
+            // Update the review
+            booking.setReview(reviewData.get("review"));
+            Booking updatedBooking = bookingRepository.save(booking);
+
+            // Return the updated booking with the review
+            return ResponseEntity.ok(updatedBooking);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new HashMap<>() {{
                 put("message", "Invalid or expired token");

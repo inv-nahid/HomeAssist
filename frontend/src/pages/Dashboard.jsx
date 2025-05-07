@@ -33,15 +33,16 @@ const Dashboard = () => {
 
         const data = await response.json();
         setBookings(data);
+        
         // Extract reviews from bookings
         const userReviews = data
           .filter(booking => booking.review)
           .map(booking => ({
             id: booking.id,
-            rating: booking.review.rating || 4,
-            comment: booking.review.comment || booking.review,
+            review: JSON.parse(booking.review),
             date: booking.date
           }));
+        
         setReviews(userReviews);
       } catch (err) {
         setError(err.message);
@@ -53,13 +54,52 @@ const Dashboard = () => {
     fetchBookings();
   }, []);
 
-  const handleReviewSubmit = (newReview) => {
-    const updatedBookings = bookings.map(booking =>
-      booking.id === selectedBookingId ? { ...booking, review: { ...newReview, date: new Date().toISOString().split('T')[0] } } : booking
-    );
-    setBookings(updatedBookings);
-    setReviews([...reviews, { id: selectedBookingId, ...newReview, date: new Date().toISOString().split('T')[0] }]);
-    setSelectedBookingId(null);
+  const handleReviewSubmit = async (newReview) => {
+    const token = localStorage.getItem('token');
+    if (!token) {
+      setError('Please log in to submit a review');
+      return;
+    }
+
+    try {
+      const response = await fetch(`http://localhost:8080/api/bookings/${selectedBookingId}/review`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          review: JSON.stringify(newReview)
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to submit review');
+      }
+
+      const updatedBooking = await response.json();
+      
+      // Update the bookings list
+      const updatedBookings = bookings.map(booking =>
+        booking.id === selectedBookingId ? updatedBooking : booking
+      );
+      setBookings(updatedBookings);
+
+      // Update the reviews list
+      const newReviewWithDate = {
+        id: selectedBookingId,
+        ...newReview,
+        date: new Date().toISOString().split('T')[0]
+      };
+
+      // Remove old review if it exists
+      const filteredReviews = reviews.filter(review => review.id !== selectedBookingId);
+      setReviews([...filteredReviews, newReviewWithDate]);
+      
+      setSelectedBookingId(null);
+    } catch (err) {
+      setError(err.message);
+    }
   };
 
   if (loading) {
@@ -88,16 +128,23 @@ const Dashboard = () => {
                     <p className="text-gray-600">Date: {booking.date}</p>
                     <p className="text-gray-600">Status: {booking.status}</p>
                   </div>
-                  {booking.status === "completed" && !booking.review && (
+                  {!booking.review ? (
                     <button
                       onClick={() => setSelectedBookingId(booking.id)}
                       className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
                     >
                       Rate & Review
                     </button>
-                  )}
-                  {booking.review && (
-                    <span className="text-green-600">Reviewed</span>
+                  ) : (
+                    <div className="flex items-center space-x-2">
+                      <span className="text-green-600">Reviewed</span>
+                      <button
+                        onClick={() => setSelectedBookingId(booking.id)}
+                        className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition"
+                      >
+                        Edit Review
+                      </button>
+                    </div>
                   )}
                 </div>
               </div>
@@ -106,8 +153,16 @@ const Dashboard = () => {
         </div>
 
         <Modal isOpen={selectedBookingId !== null} onClose={() => setSelectedBookingId(null)}>
-          <h2 className="text-2xl font-bold text-gray-800 mb-4">Rate & Review {bookings.find(b => b.id === selectedBookingId)?.provider}</h2>
-          <ReviewForm onSubmit={handleReviewSubmit} />
+          <h2 className="text-2xl font-bold text-gray-800 mb-4">
+            {bookings.find(b => b.id === selectedBookingId)?.review ? 'Edit Review' : 'Rate & Review'} {bookings.find(b => b.id === selectedBookingId)?.provider}
+          </h2>
+          <ReviewForm 
+            onSubmit={handleReviewSubmit} 
+            initialReview={bookings.find(b => b.id === selectedBookingId)?.review ? 
+              JSON.parse(bookings.find(b => b.id === selectedBookingId).review) : 
+              undefined
+            }
+          />
         </Modal>
 
         <div className="mt-12">
