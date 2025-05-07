@@ -18,12 +18,12 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/bookings")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "http://localhost:5173")
 public class BookingController {
 
     private final BookingRepository bookingRepository;
     private final UserRepository userRepository;
-    private final String SECRET_KEY = "your-secret-key"; // Match the secret key from UserController
+    private final String SECRET_KEY = "your-secret-key-should-be-very-long-and-secure-in-production";
 
     public BookingController(BookingRepository bookingRepository, UserRepository userRepository) {
         this.bookingRepository = bookingRepository;

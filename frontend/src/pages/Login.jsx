@@ -42,6 +42,9 @@ const Login = () => {
         throw new Error(data.message || 'Login failed');
       }
 
+      // Store the token in localStorage
+      localStorage.setItem('token', data.token);
+      
       setMessage('Login successful! Redirecting...');
       setTimeout(() => navigate('/dashboard'), 2000); // Redirect to dashboard after 2 seconds
     } catch (error) {
@@ -116,7 +119,7 @@ const Login = () => {
           )}
         </form>
         <p className="text-center text-gray-600 mt-6">
-          Don’t have an account?{' '}
+          Don't have an account?{' '}
           <Link to="/register" className="text-blue-600 hover:underline">
             Register here
           </Link>
