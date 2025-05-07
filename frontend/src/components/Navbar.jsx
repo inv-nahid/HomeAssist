@@ -59,6 +59,9 @@ const Navbar = () => {
                 <Link to="/dashboard" className="font-medium text-gray-600 hover:text-blue-600 transition">
                   Dashboard
                 </Link>
+                <Link to="/profile" className="font-medium text-gray-600 hover:text-blue-600 transition">
+                  Profile
+                </Link>
                 <button
                   onClick={handleLogout}
                   className="font-medium text-gray-600 hover:text-blue-600 transition"
@@ -106,6 +109,9 @@ const Navbar = () => {
                 <>
                   <Link to="/dashboard" className="block px-4 py-2 text-gray-600 hover:bg-gray-100 rounded" onClick={toggleMobileMenu}>
                     Dashboard
+                  </Link>
+                  <Link to="/profile" className="block px-4 py-2 text-gray-600 hover:bg-gray-100 rounded" onClick={toggleMobileMenu}>
+                    Profile
                   </Link>
                   <button
                     onClick={() => {

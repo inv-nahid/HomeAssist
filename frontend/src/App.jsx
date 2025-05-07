@@ -1,4 +1,5 @@
 import AppRouter from './routes/AppRouter';
+import Profile from './pages/Profile';
 
 function App() {
   return (
