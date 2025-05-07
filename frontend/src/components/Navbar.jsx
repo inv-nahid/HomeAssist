@@ -1,18 +1,26 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from 'react';
-import { useAuth } from '../context/AuthContext';
+import { useState, useEffect } from 'react';
 
 const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const { isLoggedIn, logout } = useAuth();
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    // Check if user is logged in by looking for token
+    const token = localStorage.getItem('token');
+    setIsLoggedIn(!!token);
+  }, []);
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
   const handleLogout = () => {
-    logout();
+    // Clear the token from localStorage
+    localStorage.removeItem('token');
+    setIsLoggedIn(false);
+    // Redirect to login page
     navigate('/login');
   };
 
