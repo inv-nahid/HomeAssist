@@ -111,7 +111,7 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="py-16 bg-gradient-to-b from-blue-50 to-white">
+    <div className="py-16 bg-gradient-to-b from-pink-50 to-white">
       <div className="container mx-auto px-4">
         <h1 className="text-4xl font-bold text-gray-800 mb-8">Dashboard</h1>
         <div className="space-y-6">
@@ -120,7 +120,7 @@ const Dashboard = () => {
             <p className="text-gray-600">No bookings found.</p>
           ) : (
             bookings.map((booking) => (
-              <div key={booking.id} className="bg-white p-6 rounded-xl shadow-md border-l-4 border-indigo-600">
+              <div key={booking.id} className="bg-white p-6 rounded-xl shadow-md border-l-4 border-pink-600">
                 <div className="flex justify-between items-center">
                   <div>
                     <h3 className="text-lg font-semibold text-gray-800">{booking.provider}</h3>
@@ -131,7 +131,7 @@ const Dashboard = () => {
                   {!booking.review ? (
                     <button
                       onClick={() => setSelectedBookingId(booking.id)}
-                      className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+                      className="px-4 py-2 bg-pink-600 text-white rounded-lg hover:bg-pink-700 transition"
                     >
                       Rate & Review
                     </button>

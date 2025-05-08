@@ -41,12 +41,12 @@ const Home = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+    <div className="min-h-screen bg-gradient-to-b from-pink-50 to-white">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-r from-indigo-600 to-purple-800 text-white py-20 md:py-32 overflow-hidden">
+      <section className="relative bg-gradient-to-r from-pink-600 to-pink-800 text-white py-20 md:py-32 overflow-hidden">
         <div className="absolute inset-0 opacity-20">
           <div className="absolute top-20 left-20 w-64 h-64 bg-pink-500 rounded-full mix-blend-multiply filter blur-3xl"></div>
-          <div className="absolute bottom-20 right-20 w-64 h-64 bg-blue-500 rounded-full mix-blend-multiply filter blur-3xl"></div>
+          <div className="absolute bottom-20 right-20 w-64 h-64 bg-pink-400 rounded-full mix-blend-multiply filter blur-3xl"></div>
         </div>
         
         <div className="container mx-auto px-6 text-center relative z-10">
@@ -74,7 +74,7 @@ const Home = () => {
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Our <span className="text-indigo-600">Featured</span> Services
+              Our <span className="text-pink-600">Featured</span> Services
             </h2>
             <p className="text-gray-600 text-lg max-w-2xl mx-auto">
               Professional services tailored to your home's needs

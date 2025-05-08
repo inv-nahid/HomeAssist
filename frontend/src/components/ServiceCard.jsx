@@ -24,7 +24,7 @@ const ServiceCard = ({ service }) => {
       {/* Content */}
       <div className="p-6 flex-grow flex flex-col">
         <div className="flex items-center mb-4">
-          <div className="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 mr-3 text-xl">
+          <div className="w-10 h-10 rounded-full bg-pink-100 flex items-center justify-center text-pink-600 mr-3 text-xl">
             {service.icon}
           </div>
           <h3 className="text-xl font-bold text-gray-800">{service.name}</h3>
@@ -34,7 +34,7 @@ const ServiceCard = ({ service }) => {
         
         <div className="flex items-center justify-between">
           <div>
-            <span className="text-indigo-600 font-bold text-lg">${service.price}</span>
+            <span className="text-pink-600 font-bold text-lg">${service.price}</span>
             <span className="text-gray-500 text-sm"> / {service.duration}</span>
             <div className="flex items-center mt-1">
               <div className="flex text-yellow-400 mr-2">
@@ -45,7 +45,7 @@ const ServiceCard = ({ service }) => {
               <span className="text-gray-500 text-sm">{service.rating}</span>
             </div>
           </div>
-          <button className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg transition-colors shadow-md hover:shadow-lg"
+          <button className="px-4 py-2 bg-pink-600 hover:bg-pink-700 text-white rounded-lg transition-colors shadow-md hover:shadow-lg"
           onClick={()=>navigate('/booking')}>
             Book Now
           </button>

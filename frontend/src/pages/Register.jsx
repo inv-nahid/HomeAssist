@@ -70,7 +70,7 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white flex items-center justify-center py-16">
+    <div className="min-h-screen bg-gradient-to-b from-pink-50 to-white flex items-center justify-center py-16">
       <div className="animate-slide-up max-w-md w-full mx-auto p-8 bg-white rounded-xl shadow-lg">
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-gray-800 mb-2">Create an Account</h1>
@@ -86,7 +86,7 @@ const Register = () => {
               name="name" 
               value={formData.name} 
               onChange={handleChange} 
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500" 
               required 
             />
           </div>
@@ -99,7 +99,7 @@ const Register = () => {
               name="email" 
               value={formData.email} 
               onChange={handleChange} 
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500" 
               required 
             />
           </div>
@@ -112,7 +112,7 @@ const Register = () => {
               name="phone" 
               value={formData.phone} 
               onChange={handleChange} 
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500" 
               required 
             />
           </div>
@@ -125,7 +125,7 @@ const Register = () => {
               name="password" 
               value={formData.password} 
               onChange={handleChange} 
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500" 
               required 
             />
           </div>
@@ -138,7 +138,7 @@ const Register = () => {
               name="confirmPassword" 
               value={formData.confirmPassword} 
               onChange={handleChange} 
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500" 
               required 
             />
           </div>
@@ -151,12 +151,12 @@ const Register = () => {
                 name="agreeTerms" 
                 checked={formData.agreeTerms} 
                 onChange={handleChange} 
-                className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded" 
+                className="h-4 w-4 text-pink-600 focus:ring-pink-500 border-gray-300 rounded" 
                 required 
               />
               <span className="ml-2 text-sm text-gray-600">
                 I agree to the{' '}
-                <Link to="/terms" className="text-blue-600 hover:underline">
+                <Link to="/terms" className="text-pink-600 hover:underline">
                   Terms of Service
                 </Link>
               </span>
@@ -168,7 +168,7 @@ const Register = () => {
             <button 
               type="submit" 
               disabled={isLoading}
-              className={`w-full py-3 px-6 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5 ${
+              className={`w-full py-3 px-6 bg-pink-600 hover:bg-pink-700 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5 ${
                 isLoading ? 'opacity-70 cursor-not-allowed' : ''
               }`}
             >
@@ -188,7 +188,7 @@ const Register = () => {
 
         <p className="text-center text-gray-600 mt-6">
           Already have an account?{' '}
-          <Link to="/login" className="text-blue-600 hover:underline">
+          <Link to="/login" className="text-pink-600 hover:underline">
             Login here
           </Link>
         </p>

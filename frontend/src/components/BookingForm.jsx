@@ -74,7 +74,7 @@ const BookingForm = ({ onSubmit }) => {
             Service Provider
           </label>
           <select
-            className="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
             value={formData.provider}
             onChange={(e) => setFormData({...formData, provider: e.target.value})}
             required
@@ -91,7 +91,7 @@ const BookingForm = ({ onSubmit }) => {
             Service Type
           </label>
           <select
-            className="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
             value={formData.serviceType}
             onChange={(e) => setFormData({...formData, serviceType: e.target.value})}
             required
@@ -112,7 +112,7 @@ const BookingForm = ({ onSubmit }) => {
             </label>
             <input
               type="date"
-              className="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
               value={formData.date}
               onChange={(e) => setFormData({...formData, date: e.target.value})}
               required
@@ -125,7 +125,7 @@ const BookingForm = ({ onSubmit }) => {
             </label>
             <input
               type="time"
-              className="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+              className="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
               value={formData.time}
               onChange={(e) => setFormData({...formData, time: e.target.value})}
               required
@@ -139,7 +139,7 @@ const BookingForm = ({ onSubmit }) => {
             Address
           </label>
           <textarea
-            className="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
             rows="3"
             value={formData.address}
             onChange={(e) => setFormData({...formData, address: e.target.value})}
@@ -153,7 +153,7 @@ const BookingForm = ({ onSubmit }) => {
             Special Instructions (Optional)
           </label>
           <textarea
-            className="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            className="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
             rows="2"
             value={formData.notes}
             onChange={(e) => setFormData({...formData, notes: e.target.value})}
@@ -165,7 +165,7 @@ const BookingForm = ({ onSubmit }) => {
           <button
             type="submit"
             disabled={isLoading}
-            className="w-full py-3 px-6 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="w-full py-3 px-6 bg-pink-600 hover:bg-pink-700 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {isLoading ? 'Creating Booking...' : 'Confirm Booking'}
           </button>

@@ -29,42 +29,42 @@ const Navbar = () => {
       <div className="container mx-auto px-6 py-3">
         <div className="flex justify-between items-center">
           <Link to="/" className="flex items-center space-x-2">
-            <div className="w-10 h-10 bg-blue-600 rounded-full"></div>
-            <span className="text-2xl font-bold text-blue-600">
+            <div className="w-10 h-10 bg-pink-500 rounded-full"></div>
+            <span className="text-2xl font-bold text-pink-600">
               HomeAssist
             </span>
           </Link>
           
           <div className="hidden md:flex items-center space-x-8">
-            <Link to="/" className="font-medium text-gray-600 hover:text-blue-600 transition">
+            <Link to="/" className="font-medium text-gray-600 hover:text-pink-600 transition">
               Home
             </Link>
-            <Link to="/services" className="font-medium text-gray-600 hover:text-blue-600 transition">
+            <Link to="/services" className="font-medium text-gray-600 hover:text-pink-600 transition">
               Services
             </Link>
-            <Link to="/about" className="font-medium text-gray-600 hover:text-blue-600 transition">
+            <Link to="/about" className="font-medium text-gray-600 hover:text-pink-600 transition">
               About
             </Link>
             {!isLoggedIn ? (
               <>
-                <Link to="/login" className="font-medium text-gray-600 hover:text-blue-600 transition">
+                <Link to="/login" className="font-medium text-gray-600 hover:text-pink-600 transition">
                   Login
                 </Link>
-                <Link to="/register" className="font-medium text-gray-600 hover:text-blue-600 transition">
+                <Link to="/register" className="font-medium text-gray-600 hover:text-pink-600 transition">
                   Register
                 </Link>
               </>
             ) : (
               <>
-                <Link to="/dashboard" className="font-medium text-gray-600 hover:text-blue-600 transition">
+                <Link to="/dashboard" className="font-medium text-gray-600 hover:text-pink-600 transition">
                   Dashboard
                 </Link>
-                <Link to="/profile" className="font-medium text-gray-600 hover:text-blue-600 transition">
+                <Link to="/profile" className="font-medium text-gray-600 hover:text-pink-600 transition">
                   Profile
                 </Link>
                 <button
                   onClick={handleLogout}
-                  className="font-medium text-gray-600 hover:text-blue-600 transition"
+                  className="font-medium text-gray-600 hover:text-pink-600 transition"
                 >
                   Logout
                 </button>
@@ -72,7 +72,7 @@ const Navbar = () => {
             )}
             <Link 
               to="/book-now" 
-              className="px-6 py-2 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition shadow-md hover:shadow-lg"
+              className="px-6 py-2 bg-pink-600 text-white font-medium rounded-lg hover:bg-pink-700 transition shadow-md hover:shadow-lg"
             >
               Book Now
             </Link>
@@ -126,7 +126,7 @@ const Navbar = () => {
               )}
               <Link 
                 to="/book-now" 
-                className="block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700" 
+                className="block px-4 py-2 bg-pink-600 text-white rounded hover:bg-pink-700" 
                 onClick={toggleMobileMenu}
               >
                 Book Now

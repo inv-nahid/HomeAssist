@@ -5,12 +5,12 @@ const GradientButton = ({ children, className = '', ...props }) => {
     <button
       className={`
         bg-gradient-to-r 
-        from-blue-500 to-blue-600
+        from-pink-500 to-pink-600
         text-white 
         px-4 py-2 
         rounded-md 
         font-medium
-        hover:from-blue-600 hover:to-blue-700
+        hover:from-pink-600 hover:to-pink-700
         transition-colors
         ${className}
       `}

@@ -67,7 +67,7 @@ const ServiceDetails = () => {
   };
 
   return (
-    <div className="py-16 bg-gradient-to-b from-blue-50 to-white">
+    <div className="py-16 bg-gradient-to-b from-pink-50 to-white">
       <div className="container mx-auto px-4">
         <div className="mb-12">
           <h1 className="text-4xl font-bold text-gray-800 mb-4">{service.name}</h1>
