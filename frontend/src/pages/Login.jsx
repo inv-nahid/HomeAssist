@@ -2,129 +2,58 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
-  const [formData, setFormData] = useState({ 
-    email: '', 
-    password: '', 
-    rememberMe: false 
-  });
+  const [formData, setFormData] = useState({ email: '', password: '', rememberMe: false });
   const [message, setMessage] = useState('');
-  const [isLoading, setIsLoading] = useState(false); // NEW: Loading state
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleChange = (e) => {
+  const handleChange = e => {
     const { name, value, type, checked } = e.target;
-    setFormData({ 
-      ...formData, 
-      [name]: type === 'checkbox' ? checked : value 
-    });
+    setFormData({ ...formData, [name]: type === 'checkbox' ? checked : value });
   };
 
-  const handleSubmit = async (e) => { // NEW: Made async
+  const handleSubmit = async e => {
     e.preventDefault();
     setIsLoading(true);
     setMessage('');
-
     try {
-      const response = await fetch('http://localhost:8080/api/users/login', {
+      const res = await fetch('http://localhost:8080/api/users/login', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          email: formData.email,
-          password: formData.password
-        }),
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: formData.email, password: formData.password })
       });
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message || 'Login failed');
-      }
-
-      // Store the token in localStorage
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message || 'Login failed');
       localStorage.setItem('token', data.token);
-      
-      setMessage('Login successful! Redirecting...');
-      setTimeout(() => navigate('/dashboard'), 2000); // Redirect to dashboard after 2 seconds
-    } catch (error) {
-      setMessage(error.message || 'Login failed. Please try again.');
+      setMessage('Login successful!');
+      setTimeout(() => navigate('/dashboard'), 1000);
+    } catch (e) {
+      setMessage(e.message || 'Login failed.');
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-pink-50 to-white flex items-center justify-center py-16">
-      <div className="animate-slide-up max-w-md w-full mx-auto p-8 bg-white rounded-xl shadow-lg">
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-gray-800 mb-2">Welcome Back</h1>
-          <p className="text-gray-600">Sign in to access your account</p>
-        </div>
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="animate-fade-in" style={{ animationDelay: '0.1s' }}>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
-            <input 
-              type="email" 
-              name="email" 
-              value={formData.email} 
-              onChange={handleChange} 
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500" 
-              required 
-            />
+    <div className="min-h-screen bg-pink-50 flex flex-col">
+      <header className="w-full bg-white shadow p-4 mb-6">
+        <h1 className="text-2xl font-bold text-pink-600 text-center">HomeAssist</h1>
+      </header>
+      <main className="flex flex-1 flex-col items-center justify-center px-2">
+        <form onSubmit={handleSubmit} className="w-full max-w-xs bg-white p-6 rounded-xl shadow-md space-y-4">
+          <h2 className="text-xl font-bold mb-2 text-center">Login</h2>
+          <input name="email" type="email" placeholder="Email" value={formData.email} onChange={handleChange} className="w-full border p-2 rounded" required />
+          <input name="password" type="password" placeholder="Password" value={formData.password} onChange={handleChange} className="w-full border p-2 rounded" required />
+          <label className="flex items-center text-sm">
+            <input type="checkbox" name="rememberMe" checked={formData.rememberMe} onChange={handleChange} className="mr-2" /> Remember Me
+          </label>
+          <button type="submit" disabled={isLoading} className="w-full bg-pink-500 hover:bg-pink-600 text-white py-2 rounded transition">{isLoading ? 'Logging in...' : 'Login'}</button>
+          <div className="text-sm text-center">
+            Don't have an account? <Link to="/register" className="text-pink-600 underline">Register</Link>
           </div>
-          <div className="animate-fade-in" style={{ animationDelay: '0.2s' }}>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
-            <input 
-              type="password" 
-              name="password" 
-              value={formData.password} 
-              onChange={handleChange} 
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500" 
-              required 
-            />
-          </div>
-          <div className="animate-fade-in flex items-center justify-between" style={{ animationDelay: '0.3s' }}>
-            <label className="flex items-center">
-              <input 
-                type="checkbox" 
-                name="rememberMe" 
-                checked={formData.rememberMe} 
-                onChange={handleChange} 
-                className="h-4 w-4 text-pink-600 focus:ring-pink-500 border-gray-300 rounded" 
-              />
-              <span className="ml-2 text-sm text-gray-600">Remember Me</span>
-            </label>
-            <Link to="/forgot-password" className="text-sm text-pink-600 hover:underline">
-              Forgot Password?
-            </Link>
-          </div>
-          <div className="animate-fade-in" style={{ animationDelay: '0.4s' }}>
-            <button 
-              type="submit" 
-              disabled={isLoading}
-              className={`w-full py-3 px-6 bg-pink-600 hover:bg-pink-700 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5 ${
-                isLoading ? 'opacity-70 cursor-not-allowed' : ''
-              }`}
-            >
-              {isLoading ? 'Logging in...' : 'Login'}
-            </button>
-          </div>
-          {message && (
-            <p className={`text-center animate-fade-in ${
-              message.includes('successful') ? 'text-green-600' : 'text-red-600'
-            }`} style={{ animationDelay: '0.5s' }}>
-              {message}
-            </p>
-          )}
+          {message && <div className="text-center text-sm text-red-500">{message}</div>}
         </form>
-        <p className="text-center text-gray-600 mt-6">
-          Don't have an account?{' '}
-          <Link to="/register" className="text-pink-600 hover:underline">
-            Register here
-          </Link>
-        </p>
-      </div>
+      </main>
     </div>
   );
 };

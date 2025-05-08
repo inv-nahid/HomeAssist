@@ -52,124 +52,34 @@ const BookingForm = ({ onSubmit }) => {
     }
   };
 
+  const handleChange = e => {
+    const { name, value } = e.target;
+    setFormData(f => ({ ...f, [name]: value }));
+  };
+
   return (
-    <div className="animate-slide-up max-w-2xl mx-auto p-6 md:p-8 bg-white rounded-xl shadow-lg">
-      <h2 className="text-3xl font-bold text-center mb-2 text-gray-800">
-        Book a Service
-      </h2>
-      <p className="text-center text-gray-600 mb-8">
-        Fill out the form to schedule your appointment
-      </p>
-
-      {error && (
-        <div className="mb-4 p-4 bg-red-100 text-red-700 rounded-lg">
-          {error}
-        </div>
-      )}
-
-      <form onSubmit={handleSubmit} className="space-y-6">
-        {/* Service Selection */}
-        <div className="animate-fade-in" style={{ animationDelay: '0.3s' }}>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Service Provider
-          </label>
-          <select
-            className="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
-            value={formData.provider}
-            onChange={(e) => setFormData({...formData, provider: e.target.value})}
-            required
-          >
-            <option value="">Select a provider</option>
-            <option value="Jane's Cleaning Co">Jane's Cleaning Co</option>
-            <option value="Mike's Electrical Fix">Mike's Electrical Fix</option>
-            <option value="Tom's Plumbing Pros">Tom's Plumbing Pros</option>
-          </select>
-        </div>
-
-        <div className="animate-fade-in" style={{ animationDelay: '0.3s' }}>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Service Type
-          </label>
-          <select
-            className="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
-            value={formData.serviceType}
-            onChange={(e) => setFormData({...formData, serviceType: e.target.value})}
-            required
-          >
-            <option value="">Select a service</option>
-            <option value="Cleaning">Home Cleaning</option>
-            <option value="Electrical">Electrical Repair</option>
-            <option value="Plumbing">Plumbing</option>
-            <option value="Painting">Painting</option>
-          </select>
-        </div>
-
-        {/* Date & Time */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="animate-fade-in" style={{ animationDelay: '0.4s' }}>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Date
-            </label>
-            <input
-              type="date"
-              className="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
-              value={formData.date}
-              onChange={(e) => setFormData({...formData, date: e.target.value})}
-              required
-            />
-          </div>
-
-          <div className="animate-fade-in" style={{ animationDelay: '0.5s' }}>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
-              Time
-            </label>
-            <input
-              type="time"
-              className="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
-              value={formData.time}
-              onChange={(e) => setFormData({...formData, time: e.target.value})}
-              required
-            />
-          </div>
-        </div>
-
-        {/* Address */}
-        <div className="animate-fade-in" style={{ animationDelay: '0.6s' }}>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Address
-          </label>
-          <textarea
-            className="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
-            rows="3"
-            value={formData.address}
-            onChange={(e) => setFormData({...formData, address: e.target.value})}
-            required
-          />
-        </div>
-
-        {/* Notes */}
-        <div className="animate-fade-in" style={{ animationDelay: '0.7s' }}>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Special Instructions (Optional)
-          </label>
-          <textarea
-            className="form-input w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
-            rows="2"
-            value={formData.notes}
-            onChange={(e) => setFormData({...formData, notes: e.target.value})}
-          />
-        </div>
-
-        {/* Submit Button */}
-        <div className="animate-fade-in" style={{ animationDelay: '0.8s' }}>
-          <button
-            type="submit"
-            disabled={isLoading}
-            className="w-full py-3 px-6 bg-pink-600 hover:bg-pink-700 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            {isLoading ? 'Creating Booking...' : 'Confirm Booking'}
-          </button>
-        </div>
+    <div className="min-h-screen bg-pink-50 flex flex-col items-center justify-center px-2 py-8">
+      <form onSubmit={handleSubmit} className="w-full max-w-md bg-white rounded-xl shadow-md p-6 space-y-3">
+        <h2 className="text-xl font-bold mb-2 text-pink-600 text-center">Book a Service</h2>
+        {error && <div className="mb-2 p-2 bg-red-100 text-red-700 rounded text-sm">{error}</div>}
+        <select name="provider" value={formData.provider} onChange={handleChange} className="w-full border p-2 rounded" required>
+          <option value="">Select a provider</option>
+          <option value="Jane's Cleaning Co">Jane's Cleaning Co</option>
+          <option value="Mike's Electrical Fix">Mike's Electrical Fix</option>
+          <option value="Tom's Plumbing Pros">Tom's Plumbing Pros</option>
+        </select>
+        <select name="serviceType" value={formData.serviceType} onChange={handleChange} className="w-full border p-2 rounded" required>
+          <option value="">Select a service</option>
+          <option value="Cleaning">Home Cleaning</option>
+          <option value="Electrical">Electrical Repair</option>
+          <option value="Plumbing">Plumbing</option>
+          <option value="Painting">Painting</option>
+        </select>
+        <input name="date" type="date" value={formData.date} onChange={handleChange} className="w-full border p-2 rounded" required />
+        <input name="time" type="time" value={formData.time} onChange={handleChange} className="w-full border p-2 rounded" required />
+        <textarea name="address" placeholder="Address" value={formData.address} onChange={handleChange} rows={2} className="w-full border p-2 rounded" required />
+        <textarea name="notes" placeholder="Special Instructions (Optional)" value={formData.notes} onChange={handleChange} rows={2} className="w-full border p-2 rounded" />
+        <button type="submit" disabled={isLoading} className="w-full bg-pink-500 hover:bg-pink-600 text-white py-2 rounded transition">{isLoading ? 'Creating Booking...' : 'Confirm Booking'}</button>
       </form>
     </div>
   );

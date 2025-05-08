@@ -1,93 +1,39 @@
 import { useNavigate } from 'react-router-dom';
-import ServiceCard from '../components/ServiceCard';
+
+const services = [
+  { id: 1, name: 'Deep Cleaning', price: 120, duration: 'session' },
+  { id: 2, name: 'Electrical Repair', price: 85, duration: 'hour' },
+  { id: 3, name: 'Plumbing', price: 75, duration: 'hour' },
+];
 
 const Home = () => {
-  const featuredServices = [
-    {
-      id: 1,
-      name: "Deep Cleaning",
-      description: "Thorough cleaning including appliances and hard-to-reach areas",
-      price: 120,
-      duration: "session",
-      image: "https://picsum.photos/600/400?random=1",
-      icon: "🧹",
-      popular: true,
-      rating: 4.9
-    },
-    {
-      id: 2,
-      name: "Electrical Repair",
-      description: "Professional electrical diagnostics and repairs",
-      price: 85,
-      duration: "hour",
-      image: "https://picsum.photos/600/400?random=2",
-      icon: "⚡",
-      popular: false,
-      rating: 4.8
-    },
-    {
-      id: 3,
-      name: "Plumbing",
-      description: "Fix leaks, clogs, and install new fixtures",
-      price: 75,
-      duration: "hour",
-      image: "https://picsum.photos/600/400?random=3",
-      icon: "🚿",
-      popular: true,
-      rating: 4.7
-    }
-  ];
-
   const navigate = useNavigate();
-
   return (
-    <div className="min-h-screen bg-gradient-to-b from-pink-50 to-white">
-      {/* Hero Section */}
-      <section className="relative bg-gradient-to-r from-pink-600 to-pink-800 text-white py-20 md:py-32 overflow-hidden">
-        <div className="absolute inset-0 opacity-20">
-          <div className="absolute top-20 left-20 w-64 h-64 bg-pink-500 rounded-full mix-blend-multiply filter blur-3xl"></div>
-          <div className="absolute bottom-20 right-20 w-64 h-64 bg-pink-400 rounded-full mix-blend-multiply filter blur-3xl"></div>
+    <div className="min-h-screen bg-pink-50 flex flex-col">
+      <header className="w-full bg-white shadow p-4 mb-6">
+        <h1 className="text-2xl font-bold text-pink-600 text-center">HomeAssist</h1>
+      </header>
+      <main className="flex flex-col items-center flex-1 px-2">
+        <div className="bg-white rounded-xl shadow-md p-6 w-full max-w-lg mb-8 text-center">
+          <h2 className="text-xl font-bold mb-2">Welcome to HomeAssist</h2>
+          <p className="mb-4 text-gray-700">Book trusted professionals for your home service needs.</p>
+          <button className="mb-2 px-5 py-2 bg-pink-500 hover:bg-pink-600 text-white rounded transition" onClick={() => navigate('/services')}>Get Started</button>
         </div>
-        
-        <div className="container mx-auto px-6 text-center relative z-10">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-            Transform Your Space <br />
-            <span className="text-pink-_THREAD300">With Expert Care</span>
-          </h1>
-          <p className="text-xl md:text-2xl mb-8 max-w-2xl mx-auto">
-            Book trusted professionals for all your home service needs
-          </p>
-          <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <button className="px-8 py-4 bg-pink-500 hover:bg-pink-600 text-white font-bold rounded-lg shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1"
-            onClick={() => navigate('/services')}>
-              Get Started
-            </button>
-            <button className="px-8 py-4 bg-white/20 hover:bg-white/30 text-white font-bold rounded-lg backdrop-blur-sm transition-all border border-white/30">
-              Learn More
-            </button>
-          </div>
-        </div>
-      </section>
-
-      {/* Services Section */}
-      <section className="py-16 md:py-24">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Our <span className="text-pink-600">Featured</span> Services
-            </h2>
-            <p className="text-gray-600 text-lg max-w-2xl mx-auto">
-              Professional services tailored to your home's needs
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {featuredServices.map((service) => (
-              <ServiceCard key={service.id} service={service} />
+        <div className="w-full max-w-lg">
+          <h3 className="text-lg font-semibold mb-3 text-pink-600">Featured Services</h3>
+          <div className="grid gap-4">
+            {services.map(s => (
+              <div key={s.id} className="bg-white rounded-lg shadow p-4 flex items-center justify-between">
+                <div>
+                  <div className="font-medium text-gray-800">{s.name}</div>
+                  <div className="text-sm text-gray-500">${s.price} / {s.duration}</div>
+                </div>
+                <button className="bg-pink-500 hover:bg-pink-600 text-white px-4 py-1 rounded transition text-sm" onClick={() => navigate('/booking')}>Book Now</button>
+              </div>
             ))}
           </div>
         </div>
-      </section>
+      </main>
     </div>
   );
 };
