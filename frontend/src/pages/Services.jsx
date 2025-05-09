@@ -9,7 +9,6 @@ const Services = () => {
   const [searchLocation, setSearchLocation] = useState('');
   const [searchServiceType, setSearchServiceType] = useState('');
 
-  // Mock data for service providers
   const allServices = [
     {
       id: 1,

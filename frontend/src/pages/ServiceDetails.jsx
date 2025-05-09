@@ -6,7 +6,6 @@ import ReviewList from '../components/ReviewList';
 const ServiceDetails = () => {
   const { id } = useParams();
 
-  // Mock service provider data
   const services = {
     1: {
       id: 1,
@@ -48,7 +47,6 @@ const ServiceDetails = () => {
 
   const service = services[id] || { name: "Service Not Found", description: "", price: 0 };
 
-  // Mock reviews data
   const [reviews, setReviews] = useState([
     {
       rating: 5,

@@ -10,7 +10,6 @@ const Contact = () => {
   const handleSubmit = (e) => {
     e.preventDefault()
     console.log('Contact form submitted:', formData)
-    // Add form submission logic here
   }
 
   return (

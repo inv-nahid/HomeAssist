@@ -11,7 +11,7 @@ const Register = () => {
     agreeTerms: false 
   });
   const [message, setMessage] = useState('');
-  const [isLoading, setIsLoading] = useState(false); // NEW: Loading state
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -22,12 +22,11 @@ const Register = () => {
     });
   };
 
-  const handleSubmit = async (e) => { // NEW: Made async
+  const handleSubmit = async (e) => { 
     e.preventDefault();
     setIsLoading(true);
     setMessage('');
 
-    // Validation checks
     if (formData.password !== formData.confirmPassword) {
       setMessage("Passwords don't match!");
       setIsLoading(false);
@@ -78,7 +77,7 @@ const Register = () => {
         </div>
         
         <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Name Field */}
+
           <div className="animate-fade-in" style={{ animationDelay: '0.1s' }}>
             <label className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
             <input 
@@ -91,7 +90,6 @@ const Register = () => {
             />
           </div>
 
-          {/* Email Field */}
           <div className="animate-fade-in" style={{ animationDelay: '0.2s' }}>
             <label className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
             <input 
@@ -104,7 +102,6 @@ const Register = () => {
             />
           </div>
 
-          {/* Phone Field */}
           <div className="animate-fade-in" style={{ animationDelay: '0.3s' }}>
             <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
             <input 
@@ -117,7 +114,6 @@ const Register = () => {
             />
           </div>
 
-          {/* Password Field */}
           <div className="animate-fade-in" style={{ animationDelay: '0.4s' }}>
             <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
             <input 
@@ -130,7 +126,6 @@ const Register = () => {
             />
           </div>
 
-          {/* Confirm Password Field */}
           <div className="animate-fade-in" style={{ animationDelay: '0.5s' }}>
             <label className="block text-sm font-medium text-gray-700 mb-1">Confirm Password</label>
             <input 
@@ -143,7 +138,6 @@ const Register = () => {
             />
           </div>
 
-          {/* Terms Checkbox */}
           <div className="animate-fade-in" style={{ animationDelay: '0.6s' }}>
             <label className="flex items-center">
               <input 
@@ -163,7 +157,6 @@ const Register = () => {
             </label>
           </div>
 
-          {/* Submit Button */}
           <div className="animate-fade-in" style={{ animationDelay: '0.7s' }}>
             <button 
               type="submit" 
@@ -176,7 +169,6 @@ const Register = () => {
             </button>
           </div>
 
-          {/* Message Display */}
           {message && (
             <p className={`text-center animate-fade-in ${
               message.includes('successful') ? 'text-green-600' : 'text-red-600'

@@ -8,7 +8,7 @@ const Login = () => {
     rememberMe: false 
   });
   const [message, setMessage] = useState('');
-  const [isLoading, setIsLoading] = useState(false); // NEW: Loading state
+  const [isLoading, setIsLoading] = useState(false); 
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -19,7 +19,7 @@ const Login = () => {
     });
   };
 
-  const handleSubmit = async (e) => { // NEW: Made async
+  const handleSubmit = async (e) => { 
     e.preventDefault();
     setIsLoading(true);
     setMessage('');
@@ -43,11 +43,10 @@ const Login = () => {
         throw new Error(data.message || 'Login failed');
       }
 
-      // Store the token in localStorage
       localStorage.setItem('token', data.token);
       
       setMessage('Login successful! Redirecting...');
-      setTimeout(() => navigate('/dashboard'), 2000); // Redirect to dashboard after 2 seconds
+      setTimeout(() => navigate('/dashboard'), 2000); 
     } catch (error) {
       setMessage(error.message || 'Login failed. Please try again.');
     } finally {

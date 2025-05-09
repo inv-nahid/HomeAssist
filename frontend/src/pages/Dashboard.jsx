@@ -34,7 +34,6 @@ const Dashboard = () => {
         const data = await response.json();
         setBookings(data);
         
-        // Extract reviews from bookings
         const userReviews = data
           .filter(booking => booking.review)
           .map(booking => ({
@@ -79,20 +78,17 @@ const Dashboard = () => {
 
       const updatedBooking = await response.json();
       
-      // Update the bookings list
       const updatedBookings = bookings.map(booking =>
         booking.id === selectedBookingId ? updatedBooking : booking
       );
       setBookings(updatedBookings);
 
-      // Update the reviews list
       const newReviewWithDate = {
         id: selectedBookingId,
         ...newReview,
         date: new Date().toISOString().split('T')[0]
       };
 
-      // Remove old review if it exists
       const filteredReviews = reviews.filter(review => review.id !== selectedBookingId);
       setReviews([...filteredReviews, newReviewWithDate]);
       

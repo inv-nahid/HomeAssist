@@ -1,4 +1,4 @@
-// src/pages/Profile.js
+
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -12,7 +12,6 @@ const Profile = () => {
   });
 
   useEffect(() => {
-    // Check if user is logged in
     const token = localStorage.getItem('token');
     if (!token) {
       navigate('/login');
@@ -29,8 +28,6 @@ const Profile = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Here you can add logic to save the profile data
-    // For now, we'll just show an alert
     alert('Profile updated successfully!');
   };
 

@@ -8,7 +8,7 @@ const MaidServices = () => {
       description: "Basic cleaning for all rooms including vacuuming and mopping",
       price: 25,
       duration: "2 hours",
-      image: "https://picsum.photos/600/400?random=4", // Placeholder image
+      image: "https://picsum.photos/600/400?random=4",
       icon: "🧹",
       popular: false,
       rating: 4.5
@@ -19,8 +19,7 @@ const MaidServices = () => {
       description: "Thorough cleaning including appliances and hard-to-reach areas",
       price: 45,
       duration: "4 hours",
-      image: "https://picsum.photos/600/400?random=5", // Placeholder image
-      icon: "🧹",
+      image: "https://picsum.photos/600/400?random=5", 
       popular: true,
       rating: 4.8
     }
