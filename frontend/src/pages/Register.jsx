@@ -143,7 +143,25 @@ const Register = () => {
             />
           </div>
 
-          
+          {/* Terms Checkbox */}
+          <div className="animate-fade-in" style={{ animationDelay: '0.6s' }}>
+            <label className="flex items-center">
+              <input 
+                type="checkbox" 
+                name="agreeTerms" 
+                checked={formData.agreeTerms} 
+                onChange={handleChange} 
+                className="h-4 w-4 text-pink-600 focus:ring-pink-500 border-gray-300 rounded" 
+                required 
+              />
+              <span className="ml-2 text-sm text-gray-600">
+                I agree to the{' '}
+                <Link to="/terms" className="text-pink-600 hover:underline">
+                  Terms of Service
+                </Link>
+              </span>
+            </label>
+          </div>
 
           {/* Submit Button */}
           <div className="animate-fade-in" style={{ animationDelay: '0.7s' }}>
