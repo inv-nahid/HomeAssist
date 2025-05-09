@@ -102,42 +102,74 @@ const Dashboard = () => {
     }
   };
 
+  if (loading) {
+    return <div className="text-center py-16">Loading...</div>;
+  }
+
+  if (error) {
+    return <div className="text-center py-16 text-red-600">{error}</div>;
+  }
+
   return (
-    <div className="min-h-screen bg-pink-50 flex flex-col">
-      <header className="w-full bg-white shadow p-4 mb-6">
-        <h1 className="text-2xl font-bold text-pink-600 text-center">Dashboard</h1>
-      </header>
-      <main className="flex flex-1 flex-col items-center px-2">
-        <div className="w-full max-w-2xl bg-white rounded-xl shadow-md p-6 mb-8">
-          <h2 className="text-xl font-bold mb-4 text-pink-600">Your Bookings</h2>
-          {loading ? <div className="text-center py-8">Loading...</div> : error ? <div className="text-center text-red-600 py-8">{error}</div> : (
-            bookings.length === 0 ? <p className="text-gray-600">No bookings found.</p> :
-            <div className="space-y-4">
-              {bookings.map(booking => (
-                <div key={booking.id} className="bg-pink-50 rounded-lg shadow p-4 flex flex-col md:flex-row md:items-center md:justify-between">
+    <div className="py-16 bg-gradient-to-b from-pink-50 to-white">
+      <div className="container mx-auto px-4">
+        <h1 className="text-4xl font-bold text-gray-800 mb-8">Dashboard</h1>
+        <div className="space-y-6">
+          <h2 className="text-2xl font-bold text-gray-700 mb-4">Your Bookings</h2>
+          {bookings.length === 0 ? (
+            <p className="text-gray-600">No bookings found.</p>
+          ) : (
+            bookings.map((booking) => (
+              <div key={booking.id} className="bg-white p-6 rounded-xl shadow-md border-l-4 border-pink-600">
+                <div className="flex justify-between items-center">
                   <div>
-                    <div className="font-medium text-gray-800">{booking.provider}</div>
-                    <div className="text-sm text-gray-500">{booking.serviceType} | {booking.date} | {booking.status}</div>
+                    <h3 className="text-lg font-semibold text-gray-800">{booking.provider}</h3>
+                    <p className="text-gray-600">Service: {booking.serviceType}</p>
+                    <p className="text-gray-600">Date: {booking.date}</p>
+                    <p className="text-gray-600">Status: {booking.status}</p>
                   </div>
                   {!booking.review ? (
-                    <button onClick={() => setSelectedBookingId(booking.id)} className="mt-2 md:mt-0 px-4 py-1 bg-pink-500 hover:bg-pink-600 text-white rounded transition text-sm">Rate & Review</button>
+                    <button
+                      onClick={() => setSelectedBookingId(booking.id)}
+                      className="px-4 py-2 bg-pink-600 text-white rounded-lg hover:bg-pink-700 transition"
+                    >
+                      Rate & Review
+                    </button>
                   ) : (
-                    <span className="mt-2 md:mt-0 text-green-600 text-sm">Reviewed</span>
+                    <div className="flex items-center space-x-2">
+                      <span className="text-green-600">Reviewed</span>
+                      <button
+                        onClick={() => setSelectedBookingId(booking.id)}
+                        className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition"
+                      >
+                        Edit Review
+                      </button>
+                    </div>
                   )}
                 </div>
-              ))}
-            </div>
+              </div>
+            ))
           )}
         </div>
+
         <Modal isOpen={selectedBookingId !== null} onClose={() => setSelectedBookingId(null)}>
-          <h2 className="text-lg font-bold text-pink-600 mb-2">{bookings.find(b => b.id === selectedBookingId)?.review ? 'Edit Review' : 'Rate & Review'} {bookings.find(b => b.id === selectedBookingId)?.provider}</h2>
-          <ReviewForm onSubmit={handleReviewSubmit} initialReview={bookings.find(b => b.id === selectedBookingId)?.review ? JSON.parse(bookings.find(b => b.id === selectedBookingId).review) : undefined} />
+          <h2 className="text-2xl font-bold text-gray-800 mb-4">
+            {bookings.find(b => b.id === selectedBookingId)?.review ? 'Edit Review' : 'Rate & Review'} {bookings.find(b => b.id === selectedBookingId)?.provider}
+          </h2>
+          <ReviewForm 
+            onSubmit={handleReviewSubmit} 
+            initialReview={bookings.find(b => b.id === selectedBookingId)?.review ? 
+              JSON.parse(bookings.find(b => b.id === selectedBookingId).review) : 
+              undefined
+            }
+          />
         </Modal>
-        <div className="w-full max-w-2xl bg-white rounded-xl shadow-md p-6 mt-4">
-          <h2 className="text-xl font-bold mb-4 text-pink-600">Your Reviews</h2>
+
+        <div className="mt-12">
+          <h2 className="text-2xl font-bold text-gray-700 mb-4">Your Reviews</h2>
           <ReviewList reviews={reviews} />
         </div>
-      </main>
+      </div>
     </div>
   );
 };

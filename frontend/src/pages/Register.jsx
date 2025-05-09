@@ -2,70 +2,197 @@ import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 const Register = () => {
-  const [formData, setFormData] = useState({ name: '', email: '', phone: '', password: '', confirmPassword: '', agreeTerms: false });
+  const [formData, setFormData] = useState({ 
+    name: '', 
+    email: '', 
+    phone: '', 
+    password: '', 
+    confirmPassword: '', 
+    agreeTerms: false 
+  });
   const [message, setMessage] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false); // NEW: Loading state
   const navigate = useNavigate();
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setFormData({ ...formData, [name]: type === 'checkbox' ? checked : value });
+    setFormData({ 
+      ...formData, 
+      [name]: type === 'checkbox' ? checked : value 
+    });
   };
 
-  const handleSubmit = async e => {
+  const handleSubmit = async (e) => { // NEW: Made async
     e.preventDefault();
     setIsLoading(true);
     setMessage('');
+
+    // Validation checks
     if (formData.password !== formData.confirmPassword) {
       setMessage("Passwords don't match!");
       setIsLoading(false);
       return;
     }
+
     if (!formData.agreeTerms) {
-      setMessage('You must agree to the terms');
+      setMessage("You must agree to the terms");
       setIsLoading(false);
       return;
     }
+
     try {
-      const res = await fetch('http://localhost:8080/api/users/register', {
+      const response = await fetch('http://localhost:8080/api/users/register', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: formData.name, email: formData.email, phone: formData.phone, password: formData.password })
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          password: formData.password
+        }),
       });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.message || 'Registration failed');
-      setMessage('Registration successful!');
-      setTimeout(() => navigate('/login'), 1000);
-    } catch (e) {
-      setMessage(e.message || 'Registration failed.');
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || 'Registration failed');
+      }
+
+      setMessage('Registration successful! Redirecting...');
+      setTimeout(() => navigate('/login'), 2000);
+    } catch (error) {
+      setMessage(error.message || 'Registration failed. Please try again.');
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-pink-50 flex flex-col">
-      <header className="w-full bg-white shadow p-4 mb-6">
-        <h1 className="text-2xl font-bold text-pink-600 text-center">HomeAssist</h1>
-      </header>
-      <main className="flex flex-1 flex-col items-center justify-center px-2">
-        <form onSubmit={handleSubmit} className="w-full max-w-xs bg-white p-6 rounded-xl shadow-md space-y-3">
-          <h2 className="text-xl font-bold mb-2 text-center">Register</h2>
-          <input name="name" type="text" placeholder="Full Name" value={formData.name} onChange={handleChange} className="w-full border p-2 rounded" required />
-          <input name="email" type="email" placeholder="Email" value={formData.email} onChange={handleChange} className="w-full border p-2 rounded" required />
-          <input name="phone" type="tel" placeholder="Phone" value={formData.phone} onChange={handleChange} className="w-full border p-2 rounded" required />
-          <input name="password" type="password" placeholder="Password" value={formData.password} onChange={handleChange} className="w-full border p-2 rounded" required />
-          <input name="confirmPassword" type="password" placeholder="Confirm Password" value={formData.confirmPassword} onChange={handleChange} className="w-full border p-2 rounded" required />
-          <label className="flex items-center text-sm">
-            <input type="checkbox" name="agreeTerms" checked={formData.agreeTerms} onChange={handleChange} className="mr-2" required /> I agree to the <Link to="/terms" className="text-pink-600 underline">Terms</Link>
-          </label>
-          <button type="submit" disabled={isLoading} className="w-full bg-pink-500 hover:bg-pink-600 text-white py-2 rounded transition">{isLoading ? 'Registering...' : 'Register'}</button>
-          <div className="text-sm text-center">
-            Already have an account? <Link to="/login" className="text-pink-600 underline">Login</Link>
+    <div className="min-h-screen bg-gradient-to-b from-pink-50 to-white flex items-center justify-center py-16">
+      <div className="animate-slide-up max-w-md w-full mx-auto p-8 bg-white rounded-xl shadow-lg">
+        <div className="text-center mb-8">
+          <h1 className="text-3xl font-bold text-gray-800 mb-2">Create an Account</h1>
+          <p className="text-gray-600">Join us to book professional home services</p>
+        </div>
+        
+        <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Name Field */}
+          <div className="animate-fade-in" style={{ animationDelay: '0.1s' }}>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+            <input 
+              type="text" 
+              name="name" 
+              value={formData.name} 
+              onChange={handleChange} 
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500" 
+              required 
+            />
           </div>
-          {message && <div className="text-center text-sm text-red-500">{message}</div>}
+
+          {/* Email Field */}
+          <div className="animate-fade-in" style={{ animationDelay: '0.2s' }}>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+            <input 
+              type="email" 
+              name="email" 
+              value={formData.email} 
+              onChange={handleChange} 
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500" 
+              required 
+            />
+          </div>
+
+          {/* Phone Field */}
+          <div className="animate-fade-in" style={{ animationDelay: '0.3s' }}>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
+            <input 
+              type="tel" 
+              name="phone" 
+              value={formData.phone} 
+              onChange={handleChange} 
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500" 
+              required 
+            />
+          </div>
+
+          {/* Password Field */}
+          <div className="animate-fade-in" style={{ animationDelay: '0.4s' }}>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Password</label>
+            <input 
+              type="password" 
+              name="password" 
+              value={formData.password} 
+              onChange={handleChange} 
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500" 
+              required 
+            />
+          </div>
+
+          {/* Confirm Password Field */}
+          <div className="animate-fade-in" style={{ animationDelay: '0.5s' }}>
+            <label className="block text-sm font-medium text-gray-700 mb-1">Confirm Password</label>
+            <input 
+              type="password" 
+              name="confirmPassword" 
+              value={formData.confirmPassword} 
+              onChange={handleChange} 
+              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500" 
+              required 
+            />
+          </div>
+
+          {/* Terms Checkbox */}
+          <div className="animate-fade-in" style={{ animationDelay: '0.6s' }}>
+            <label className="flex items-center">
+              <input 
+                type="checkbox" 
+                name="agreeTerms" 
+                checked={formData.agreeTerms} 
+                onChange={handleChange} 
+                className="h-4 w-4 text-pink-600 focus:ring-pink-500 border-gray-300 rounded" 
+                required 
+              />
+              <span className="ml-2 text-sm text-gray-600">
+                I agree to the{' '}
+                <Link to="/terms" className="text-pink-600 hover:underline">
+                  Terms of Service
+                </Link>
+              </span>
+            </label>
+          </div>
+
+          {/* Submit Button */}
+          <div className="animate-fade-in" style={{ animationDelay: '0.7s' }}>
+            <button 
+              type="submit" 
+              disabled={isLoading}
+              className={`w-full py-3 px-6 bg-pink-600 hover:bg-pink-700 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5 ${
+                isLoading ? 'opacity-70 cursor-not-allowed' : ''
+              }`}
+            >
+              {isLoading ? 'Registering...' : 'Register'}
+            </button>
+          </div>
+
+          {/* Message Display */}
+          {message && (
+            <p className={`text-center animate-fade-in ${
+              message.includes('successful') ? 'text-green-600' : 'text-red-600'
+            }`}>
+              {message}
+            </p>
+          )}
         </form>
-      </main>
+
+        <p className="text-center text-gray-600 mt-6">
+          Already have an account?{' '}
+          <Link to="/login" className="text-pink-600 hover:underline">
+            Login here
+          </Link>
+        </p>
+      </div>
     </div>
   );
 };

@@ -6,7 +6,7 @@ const ReviewList = ({ reviews }) => {
     return (
       <div className="space-y-6">
         {reviews.map((review, index) => (
-          <div key={index} className="bg-white p-6 rounded-xl shadow-md border-l-4 border-pink-600">
+          <div key={index} className="bg-white p-6 rounded-xl shadow-md border-l-4 border-indigo-600">
             <div className="flex items-center mb-2">
               <div className="flex text-yellow-400">
                 {[...Array(5)].map((_, i) => (

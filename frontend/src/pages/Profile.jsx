@@ -35,20 +35,82 @@ const Profile = () => {
   };
 
   return (
-    <div className="min-h-screen bg-pink-50 flex flex-col">
-      <header className="w-full bg-white shadow p-4 mb-6">
-        <h1 className="text-2xl font-bold text-pink-600 text-center">Profile</h1>
-      </header>
-      <main className="flex flex-1 flex-col items-center px-2">
-        <form onSubmit={handleSubmit} className="w-full max-w-md bg-white rounded-xl shadow-md p-6">
-          <h2 className="text-xl font-bold mb-4 text-pink-600 text-center">My Profile</h2>
-          <input name="name" type="text" placeholder="Full Name" value={formData.name} onChange={handleChange} className="w-full border p-2 rounded mb-3" required />
-          <textarea name="address" placeholder="Address" value={formData.address} onChange={handleChange} rows={2} className="w-full border p-2 rounded mb-3" required />
-          <input name="phoneNumber" type="tel" placeholder="Phone Number" value={formData.phoneNumber} onChange={handleChange} className="w-full border p-2 rounded mb-3" required />
-          <textarea name="serviceNeeds" placeholder="Describe Your Home Service Needs" value={formData.serviceNeeds} onChange={handleChange} rows={3} className="w-full border p-2 rounded mb-4" required />
-          <button type="submit" className="w-full bg-pink-500 hover:bg-pink-600 text-white py-2 rounded transition">Save Profile</button>
-        </form>
-      </main>
+    <div className="min-h-screen bg-gray-50 py-12">
+      <div className="max-w-2xl mx-auto px-4">
+        <div className="bg-white rounded-lg shadow-md p-8">
+          <h1 className="text-3xl font-bold text-gray-800 mb-8">My Profile</h1>
+          
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div>
+              <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+                Full Name
+              </label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                required
+              />
+            </div>
+
+            <div>
+              <label htmlFor="address" className="block text-sm font-medium text-gray-700 mb-1">
+                Address
+              </label>
+              <textarea
+                id="address"
+                name="address"
+                value={formData.address}
+                onChange={handleChange}
+                rows="3"
+                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                required
+              />
+            </div>
+
+            <div>
+              <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-700 mb-1">
+                Phone Number
+              </label>
+              <input
+                type="tel"
+                id="phoneNumber"
+                name="phoneNumber"
+                value={formData.phoneNumber}
+                onChange={handleChange}
+                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                required
+              />
+            </div>
+
+            <div>
+              <label htmlFor="serviceNeeds" className="block text-sm font-medium text-gray-700 mb-1">
+                Describe Your Home Service Needs
+              </label>
+              <textarea
+                id="serviceNeeds"
+                name="serviceNeeds"
+                value={formData.serviceNeeds}
+                onChange={handleChange}
+                rows="4"
+                className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+                placeholder="Tell us about your home service requirements..."
+                required
+              />
+            </div>
+
+            <button
+              type="submit"
+              className="w-full bg-pink-600 text-white py-3 px-6 rounded-md hover:bg-pink-700 transition duration-200 font-medium"
+            >
+              Save Profile
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
   );
 };

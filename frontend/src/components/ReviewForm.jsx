@@ -47,7 +47,7 @@ const ReviewForm = ({ onSubmit, initialReview }) => {
           Your Review
         </label>
         <textarea
-          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-pink-500 focus:border-pink-500"
+          className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
           rows="4"
           value={formData.comment}
           onChange={(e) => setFormData({ ...formData, comment: e.target.value })}
@@ -58,7 +58,7 @@ const ReviewForm = ({ onSubmit, initialReview }) => {
 
       <button
         type="submit"
-        className="w-full py-3 px-6 bg-pink-600 hover:bg-pink-700 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5"
+        className="w-full py-3 px-6 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5"
       >
         {initialReview ? 'Update Review' : 'Submit Review'}
       </button>

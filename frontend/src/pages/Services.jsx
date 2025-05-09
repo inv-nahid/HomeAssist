@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import SectionHeader from '../components/ui/SectionHeader';
 import ServiceCard from '../components/ServiceCard';
 import MaidServices from './Services/MaidServices';
@@ -9,7 +8,6 @@ const Services = () => {
   const [activeTab, setActiveTab] = useState('all');
   const [searchLocation, setSearchLocation] = useState('');
   const [searchServiceType, setSearchServiceType] = useState('');
-  const navigate = useNavigate();
 
   // Mock data for service providers
   const allServices = [
@@ -21,6 +19,10 @@ const Services = () => {
       serviceType: "Cleaning",
       price: 120,
       duration: "session",
+      image: "https://picsum.photos/600/400?random=1",
+      icon: "🧹",
+      popular: true,
+      rating: 4.9
     },
     {
       id: 2,
@@ -30,6 +32,10 @@ const Services = () => {
       serviceType: "Electrical",
       price: 85,
       duration: "hour",
+      image: "https://picsum.photos/600/400?random=2",
+      icon: "⚡",
+      popular: false,
+      rating: 4.8
     },
     {
       id: 3,
@@ -39,6 +45,10 @@ const Services = () => {
       serviceType: "Plumbing",
       price: 75,
       duration: "hour",
+      image: "https://picsum.photos/600/400?random=3",
+      icon: "🚿",
+      popular: true,
+      rating: 4.7
     },
     {
       id: 4,
@@ -48,6 +58,10 @@ const Services = () => {
       serviceType: "Cleaning",
       price: 110,
       duration: "session",
+      image: "https://picsum.photos/600/400?random=4",
+      icon: "🧹",
+      popular: true,
+      rating: 4.6
     }
   ].filter(service => {
     const matchesLocation = service.location.toLowerCase().includes(searchLocation.toLowerCase());
@@ -55,53 +69,60 @@ const Services = () => {
     return matchesLocation && matchesServiceType;
   });
 
-  const filtered = allServices.filter(s =>
-    s.location.toLowerCase().includes(searchLocation.toLowerCase()) &&
-    s.serviceType.toLowerCase().includes(searchServiceType.toLowerCase())
-  );
-
   return (
-    <div className="min-h-screen bg-pink-50 flex flex-col">
-      <header className="w-full bg-white shadow p-4 mb-6">
-        <h1 className="text-2xl font-bold text-pink-600 text-center">Services</h1>
-      </header>
-      <main className="flex flex-1 flex-col items-center px-2">
-        <div className="w-full max-w-2xl bg-white rounded-xl shadow-md p-6 mb-8">
-          <h2 className="text-xl font-bold mb-4 text-pink-600 text-center">Find a Service</h2>
-          <div className="flex flex-col md:flex-row gap-3 mb-4">
+    <div className="py-16 bg-gradient-to-b from-[var(--light)] to-white">
+      <div className="container mx-auto px-4">
+        <SectionHeader 
+          title="Our Services" 
+          subtitle="Find and book professional services tailored to your needs"
+        />
+        
+        <div className="mb-12">
+          <div className="flex flex-col md:flex-row gap-4">
             <input
               type="text"
-              placeholder="Search by location..."
+              placeholder="Search by location (e.g., New York, CA)..."
               value={searchLocation}
-              onChange={e => setSearchLocation(e.target.value)}
-              className="flex-1 border p-2 rounded"
+              onChange={(e) => setSearchLocation(e.target.value)}
+              className="w-full md:w-1/2 p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             />
             <input
               type="text"
-              placeholder="Search by service type..."
+              placeholder="Search by service type (e.g., Cleaning, Electrical)..."
               value={searchServiceType}
-              onChange={e => setSearchServiceType(e.target.value)}
-              className="flex-1 border p-2 rounded"
+              onChange={(e) => setSearchServiceType(e.target.value)}
+              className="w-full md:w-1/2 p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             />
-          </div>
-          <div className="grid gap-4">
-            {filtered.length === 0 ? (
-              <div className="text-gray-600 text-center">No services found.</div>
-            ) : (
-              filtered.map(s => (
-                <div key={s.id} className="bg-pink-50 rounded-lg shadow p-4 flex flex-col md:flex-row md:items-center md:justify-between">
-                  <div>
-                    <div className="font-medium text-gray-800">{s.name}</div>
-                    <div className="text-sm text-gray-500">{s.serviceType} | {s.location}</div>
-                    <div className="text-sm text-gray-500">${s.price} / {s.duration}</div>
-                  </div>
-                  <button className="mt-2 md:mt-0 bg-pink-500 hover:bg-pink-600 text-white px-4 py-1 rounded transition text-sm" onClick={() => navigate('/booking')}>Book Now</button>
-                </div>
-              ))
-            )}
           </div>
         </div>
-      </main>
+        
+        <div className="flex flex-wrap gap-2 mb-12 justify-center">
+          {['all', 'maid', 'electrician'].map((tab) => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              className={`px-6 py-2 rounded-full capitalize transition-all ${
+                activeTab === tab
+                  ? 'bg-[var(--primary)] text-white shadow-md'
+                  : 'bg-white text-gray-600 hover:bg-gray-50'
+              }`}
+            >
+              {tab === 'all' ? 'All Services' : tab + ' Services'}
+            </button>
+          ))}
+        </div>
+
+        {activeTab === 'all' && (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {allServices.map((service) => (
+              <ServiceCard key={service.id} service={service} />
+            ))}
+          </div>
+        )}
+
+        {activeTab === 'maid' && <MaidServices />}
+        {activeTab === 'electrician' && <ElectricianServices />}
+      </div>
     </div>
   );
 };
