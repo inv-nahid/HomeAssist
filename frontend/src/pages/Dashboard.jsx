@@ -140,7 +140,7 @@ const Dashboard = () => {
                       <span className="text-green-600">Reviewed</span>
                       <button
                         onClick={() => setSelectedBookingId(booking.id)}
-                        className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700 transition"
+                        className="px-4 py-2 bg-pink-600 text-white rounded-lg hover:bg-pink-700 transition"
                       >
                         Edit Review
                       </button>
@@ -153,7 +153,7 @@ const Dashboard = () => {
         </div>
 
         <Modal isOpen={selectedBookingId !== null} onClose={() => setSelectedBookingId(null)}>
-          <h2 className="text-2xl font-bold text-gray-800 mb-4">
+          <h2 className="text-2xl font-bold text-pink-600 mb-4">
             {bookings.find(b => b.id === selectedBookingId)?.review ? 'Edit Review' : 'Rate & Review'} {bookings.find(b => b.id === selectedBookingId)?.provider}
           </h2>
           <ReviewForm 
@@ -165,8 +165,8 @@ const Dashboard = () => {
           />
         </Modal>
 
-        <div className="mt-12">
-          <h2 className="text-2xl font-bold text-gray-700 mb-4">Your Reviews</h2>
+        <div className="mt-12 border-l-4 border-pink-600 pl-4">
+          <h2 className="text-2xl font-bold text-pink-600 mb-4">Your Reviews</h2>
           <ReviewList reviews={reviews} />
         </div>
       </div>

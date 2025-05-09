@@ -58,7 +58,7 @@ const ReviewForm = ({ onSubmit, initialReview }) => {
 
       <button
         type="submit"
-        className="w-full py-3 px-6 bg-blue-600 hover:bg-blue-700 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5"
+        className="w-full py-3 px-6 bg-pink-600 hover:bg-pink-700 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all transform hover:-translate-y-0.5"
       >
         {initialReview ? 'Update Review' : 'Submit Review'}
       </button>
