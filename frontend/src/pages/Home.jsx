@@ -9,7 +9,7 @@ const Home = () => {
       description: "Thorough cleaning including appliances and hard-to-reach areas",
       price: 120,
       duration: "session",
-      image: "https://picsum.photos/600/400?random=1",
+      image: "../assets/deepclean.jpg",
       icon: "🧹",
       popular: true,
       rating: 4.9
@@ -42,7 +42,7 @@ const Home = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-pink-50 to-white">
-      <section className="relative bg-gradient-to-r from-pink-600 to-pink-800 text-white py-20 md:py-32 overflow-hidden">
+      <section className="relative bg-gradient-to-r from-pink-600 to-purple-800 text-white py-20 md:py-32 overflow-hidden">
         <div className="absolute inset-0 opacity-20">
           <div className="absolute top-20 left-20 w-64 h-64 bg-pink-500 rounded-full mix-blend-multiply filter blur-3xl"></div>
           <div className="absolute bottom-20 right-20 w-64 h-64 bg-pink-400 rounded-full mix-blend-multiply filter blur-3xl"></div>
