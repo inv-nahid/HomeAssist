@@ -37,6 +37,7 @@ const Login = () => {
       });
 
       const data = await response.json();
+      window.location.href="/";
 
       if (!response.ok) {
         throw new Error(data.message || 'Login failed');
