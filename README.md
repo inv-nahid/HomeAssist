@@ -28,25 +28,7 @@ Spring Security: For JWT-based authentication.
 
 Project Structure:
 
-HomeAssist/
-├── frontend/                  # React frontend
-│   ├── src/
-│   │   ├── components/       # Reusable components (e.g., Navbar, Footer, ServiceCard)
-│   │   ├── pages/            # Page components (e.g., Home, About, Services)
-│   │   ├── App.jsx           # Main app component with routing
-│   │   └── index.css         # Global styles
-│   ├── package.json          # Frontend dependencies
-│   └── vite.config.js        # Vite configuration
-└── backend/                  # Spring Boot backend
-    ├── src/main/java/com/homeassist/backend/
-    │   ├── controller/       # REST controllers (e.g., AuthController)
-    │   ├── model/            # JPA entities (e.g., User, ServiceProvider)
-    │   ├── repository/       # JPA repositories
-    │   ├── service/          # Business logic services
-    │   └── HomeassistBackendApplication.java  # Main application class
-    ├── src/main/resources/
-    │   └── application.properties  # Backend configuration (e.g., MySQL settings)
-    └── pom.xml               # Backend dependencies
+![image](https://github.com/user-attachments/assets/ef4effbc-3e56-4f8f-9393-1a5e69eb6730)
 
 Prerequisites:
 Node.js (v16 or higher): For the frontend.
