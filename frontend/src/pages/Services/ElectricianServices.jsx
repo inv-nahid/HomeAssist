@@ -1,4 +1,6 @@
 import ServiceCard from "../../components/ServiceCard";
+import outletImg from '../../assets/outlet.jpg';
+import circuitImg from '../../assets/circuit.jpg';
 
 const ElectricianServices = () => {
   const electricianServices = [
@@ -8,7 +10,7 @@ const ElectricianServices = () => {
       description: "Professional installation of electrical outlets",
       price: 50,
       duration: "1 hour",
-      image: "https://picsum.photos/600/400?random=6", 
+      image: outletImg, 
       icon: "⚡",
       popular: false,
       rating: 4.6
@@ -19,7 +21,7 @@ const ElectricianServices = () => {
       description: "Diagnosis and repair of electrical circuits",
       price: 75,
       duration: "2 hours",
-      image: "https://picsum.photos/600/400?random=7", 
+      image: circuitImg, 
       icon: "⚡",
       popular: true,
       rating: 4.7

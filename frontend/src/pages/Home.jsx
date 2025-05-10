@@ -1,6 +1,10 @@
 import { useNavigate } from 'react-router-dom';
 import ServiceCard from '../components/ServiceCard';
 
+import deepCleanImg from '../assets/deepclean.jpg';
+import electricImg from '../assets/electric.jpg';
+import plumbingImg from '../assets/plumbing.jpg';
+
 const Home = () => {
   const featuredServices = [
     {
@@ -9,7 +13,7 @@ const Home = () => {
       description: "Thorough cleaning including appliances and hard-to-reach areas",
       price: 120,
       duration: "session",
-      image: "../assets/deepclean.jpg",
+      image: deepCleanImg,
       icon: "🧹",
       popular: true,
       rating: 4.9
@@ -20,7 +24,7 @@ const Home = () => {
       description: "Professional electrical diagnostics and repairs",
       price: 85,
       duration: "hour",
-      image: "https://picsum.photos/600/400?random=2",
+      image: electricImg,
       icon: "⚡",
       popular: false,
       rating: 4.8
@@ -31,7 +35,7 @@ const Home = () => {
       description: "Fix leaks, clogs, and install new fixtures",
       price: 75,
       duration: "hour",
-      image: "https://picsum.photos/600/400?random=3",
+      image: plumbingImg,
       icon: "🚿",
       popular: true,
       rating: 4.7

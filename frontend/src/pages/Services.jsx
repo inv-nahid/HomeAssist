@@ -3,6 +3,10 @@ import SectionHeader from '../components/ui/SectionHeader';
 import ServiceCard from '../components/ServiceCard';
 import MaidServices from './Services/MaidServices';
 import ElectricianServices from './Services/ElectricianServices';
+import deepCleanImg from '../assets/deepclean.jpg';
+import electricImg from '../assets/electric.jpg';
+import plumbingImg from '../assets/plumbing.jpg';
+import cleanImg from '../assets/clean.jpg';
 
 const Services = () => {
   const [activeTab, setActiveTab] = useState('all');
@@ -18,7 +22,7 @@ const Services = () => {
       serviceType: "Cleaning",
       price: 120,
       duration: "session",
-      image: "https://picsum.photos/600/400?random=1",
+      image: deepCleanImg,
       icon: "🧹",
       popular: true,
       rating: 4.9
@@ -31,7 +35,7 @@ const Services = () => {
       serviceType: "Electrical",
       price: 85,
       duration: "hour",
-      image: "https://picsum.photos/600/400?random=2",
+      image: electricImg,
       icon: "⚡",
       popular: false,
       rating: 4.8
@@ -44,7 +48,7 @@ const Services = () => {
       serviceType: "Plumbing",
       price: 75,
       duration: "hour",
-      image: "https://picsum.photos/600/400?random=3",
+      image: plumbingImg,
       icon: "🚿",
       popular: true,
       rating: 4.7
@@ -57,7 +61,7 @@ const Services = () => {
       serviceType: "Cleaning",
       price: 110,
       duration: "session",
-      image: "https://picsum.photos/600/400?random=4",
+      image: cleanImg,
       icon: "🧹",
       popular: true,
       rating: 4.6

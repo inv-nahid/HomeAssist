@@ -1,4 +1,6 @@
 import ServiceCard from "../../components/ServiceCard";
+import standardcleanImg from '../../assets/standardclean.jpg';
+import deepImg from '../../assets/deep.jpg';
 
 const MaidServices = () => {
   const maidServices = [
@@ -8,7 +10,7 @@ const MaidServices = () => {
       description: "Basic cleaning for all rooms including vacuuming and mopping",
       price: 25,
       duration: "2 hours",
-      image: "https://picsum.photos/600/400?random=4",
+      image: standardcleanImg,
       icon: "🧹",
       popular: false,
       rating: 4.5
@@ -19,7 +21,7 @@ const MaidServices = () => {
       description: "Thorough cleaning including appliances and hard-to-reach areas",
       price: 45,
       duration: "4 hours",
-      image: "https://picsum.photos/600/400?random=5", 
+      image: deepImg, 
       popular: true,
       rating: 4.8
     }
