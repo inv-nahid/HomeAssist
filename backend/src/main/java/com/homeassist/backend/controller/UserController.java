@@ -19,6 +19,8 @@ public class UserController {
     public UserController(UserRepository userRepository) {
         this.userRepository = userRepository;
     }
+
+    //USER REGISTRATION ENTITY WRITTEN INSIDE CONTROLLER
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody User user) {
         if (userRepository.findByEmail(user.getEmail()) != null) {
@@ -31,6 +33,8 @@ public class UserController {
         response.put("message", "Register successfully");
         return ResponseEntity.ok(response);
     }
+
+    //USER LOGIN ENTITY WRITTEN INSIDE CONTROLLER
     @PostMapping("/login")
     public ResponseEntity<?> loginUser(@RequestBody User loginRequest) {
         User user = userRepository.findByEmail(loginRequest.getEmail());
@@ -47,7 +51,7 @@ public class UserController {
         String token = Jwts.builder()
                 .setSubject(user.getEmail())
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + 86400000)) // 24 hours
+                .setExpiration(new Date(System.currentTimeMillis() + 86400000)) // TOKEN EXPIRY SET TO 24HRS, CHANGEABLE
                 .signWith(Keys.hmacShaKeyFor(SECRET_KEY.getBytes(StandardCharsets.UTF_8)))
                 .compact();
         Map<String, String> response = new HashMap<>();
