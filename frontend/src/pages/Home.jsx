@@ -61,11 +61,16 @@ const Home = () => {
             Book trusted professionals for all your home service needs
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <button className="px-8 py-4 bg-pink-500 hover:bg-pink-600 text-white font-bold rounded-lg shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1"
-            onClick={() => navigate('/services')}>
+            <button
+              className="px-8 py-4 bg-pink-500 hover:bg-pink-600 text-white font-bold rounded-lg shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-1"
+              onClick={() => navigate('/services')}
+            >
               Get Started
             </button>
-            <button className="px-8 py-4 bg-white/20 hover:bg-white/30 text-white font-bold rounded-lg backdrop-blur-sm transition-all border border-white/30">
+            <button
+              className="px-8 py-4 bg-white/20 hover:bg-white/30 text-white font-bold rounded-lg backdrop-blur-sm transition-all border border-white/30"
+              onClick={() => navigate('/about')}
+            >
               Learn More
             </button>
           </div>
