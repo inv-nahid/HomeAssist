@@ -21,7 +21,18 @@ const Navbar = () => {
       <div className="container mx-auto px-6 py-3">
         <div className="flex justify-between items-center">
           <Link to="/" className="flex items-center space-x-2">
-            <div className="w-10 h-10 bg-pink-500 rounded-full"></div>
+            <svg
+              width="40"
+              height="40"
+              viewBox="0 0 40 40"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              className="mr-2"
+            >
+              <rect width="40" height="40" rx="12" fill="#EC4899"/>
+              <path d="M12 24V18.5L20 13L28 18.5V24C28 25.1046 27.1046 26 26 26H14C12.8954 26 12 25.1046 12 24Z" fill="white"/>
+              <rect x="17" y="21" width="6" height="5" rx="1" fill="#EC4899"/>
+            </svg>
             <span className="text-2xl font-bold text-pink-600">
               HomeAssist
             </span>

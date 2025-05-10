@@ -26,10 +26,10 @@ const Footer = () => {
         </div>
         <div className="border-t border-gray-700 mt-8 pt-6 text-center">
           <div className="flex justify-center gap-4 mb-2">
-            <a href="https://github.com/" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition">
+            <a href="https://github.com/inv-nahid" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition">
               <FiGithub className="inline-block text-xl" />
             </a>
-            <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition">
+            <a href="https://x.com/xizt_7" target="_blank" rel="noopener noreferrer" className="hover:text-blue-400 transition">
               <FiTwitter className="inline-block text-xl" />
             </a>
           </div>
