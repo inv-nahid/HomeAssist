@@ -1,4 +1,4 @@
-HomeAssist
+## [HomeAssist](https://bright-swan-3b2070.netlify.app/)
 
 Overview:
 HomeAssist is a full-stack web application designed to connect users with trusted home service professionals. Whether you need deep cleaning, electrical repairs, or plumbing, HomeAssist makes it easy to find, book, and manage services in your local area. Built with a modern tech stack, this project features a responsive React frontend and a secure Spring Boot backend with MySQL.
